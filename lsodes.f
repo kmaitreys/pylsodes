@@ -1360,6 +1360,67 @@
       maxord = min(maxord,mord(meth))
       mxstep = iwork(6)
       if (mxstep .lt. 0) go to 612
-      if 
+      if (mxstep .eq. 0) mxstep = mxstp0
+      mxhnil = iwork(7)
+      if (mxhnil .lt. 0) go to 613
+      if (mxhnil .eq. 0) mxhnil = mxhnl0
+      if (istate .ne. 1) go to 50
+      h0 = rwork(5)
+      if ((tout -t)*h0 .lt. 0.0D0) go to 614
+ 50   hmax = rwork(6)
+      if  (hmax .lt. 0.0D0) go to 615
+      hmxi = 0.0D0
+      if (hmax .gt. 0.0D0) hmxi = 1.0D0/hmax
+      hmin = rwork(7)
+      if (hmin .lt. 0.0D0) go to 616
+      seth = rwork(8)
+      if (seth .lt. 0.0D0) go to 609
+! Check RTOL and ATOL for legality. ------------------------------------
+ 60   rtoli = rtol(1)
+      atoli = atol(1)
+      do 65 i = 1, n
+          if (itol .ge. 3) rtoli = rtol(i)
+          if (itol .eq. 2 .or. itol .eq. 4) atoli = atol(i)
+          if (rtoli .lt. 0.0D0) go to 619
+          if (atoli .lt. 0.0D0) go to 620
+ 65       continue
+!-----------------------------------------------------------------------
+! Compute required work array lengths, as far as possible, and test
+! these against LRW and LIW.  Then set tentative pointers for work
+! arrays.  Pointers to RWORK/IWORK segments are named by prefixing L to
+! the name of the segment.  E.g., the segment YH starts at RWORK(LYH).
+! Segments of RWORK (in order) are denoted  WM, YH, SAVF, EWT, ACOR.
+! If MITER = 1 or 2, the required length of the matrix work space WM
+! is not yet known, and so a crude minimum value is used for the
+! initial tests of LRW and LIW, and YH is temporarily stored as far
+! to the right in RWORK as possible, to leave the maximum amount
+! of space for WM for matrix preprocessing.  Thus if MITER = 1 or 2
+! and MOSS .ne. 2, some of the segments of RWORK are temporarily
+! omitted, as they are not needed in the preprocessing.  These
+! omitted segments are: ACOR if ISTATE = 1, EWT and ACOR if ISTATE = 3
+! and MOSS = 1, and SAVF, EWT, and ACOR if ISTATE = 3 and MOSS = 0.
+!-----------------------------------------------------------------------
+      lrat = lenrat
+      if (istate .eq. 1) nyh = n
+      lwmin = 0
+      if (miter .eq. 1) lwmin = 4*n + 10*n/lrat
+      if (miter .eq. 2) lwmin = 4*n + 11*n/lrat
+      if (miter .eq. 3) lwmin = n + 2
+      lenyh = (maxord+1)*nyh
+      lrest = lenyh + 3*n
+      lenrw = 20 + lwmin + lrest
+      iwork(17) = lenrw
+      leniw = 30
+      if (moss .eq. 0 .and. miter .ne. 0 .and. miter .ne. 3)
+     1   leniw = leniw + n + 1
+      iwork(18) = leniw
+      if (lenrw .gt. lrw) go to 617
+      if (leniw .gt. liw) go to 618
+      lia = 31
+      if (moss .eq. 0 .and. miter .ne. 0 .and. miter .ne. 3)
+     1   leniw = leniw + iwork(lia+n) - 1
+      iwork(18) = leniw
+      if (leniw .gt. liw) go to 618
+      
       return
       end

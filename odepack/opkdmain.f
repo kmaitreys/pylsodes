@@ -83,7 +83,7 @@
 !                           values of y(t) at t = T. (Y is an input
 !                           variable only if ISTATE = 1.)
 !                   Output: On return, Y will contain the values at the
-!                           new t-value.
+!                           new t-value.     
 !
 !     T     :INOUT  Value of the independent variable.  On return it
 !                   will be the current value of t (normally TOUT).

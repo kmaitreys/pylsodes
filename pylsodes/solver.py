@@ -571,7 +571,8 @@ class Solver:
 
 
 class ODEPACK(Solver):
-    ...
+    def adjust_parameters(self): ...
+
 
 class LSODES(ODEPACK):
     _description = """
@@ -592,21 +593,25 @@ class LSODES(ODEPACK):
     def adjust_parameters(self):
         # If jac_column is input in form of jac(u,t,j),
         # wrap jac_column to jac_column_f77(t,u,j-1) for Fortran code.
-        self._parameters['jac_column']['paralist_old'] = 'u,t,j-1,ia,ja'
-        self._parameters['jac_column']['paralist_new'] = 't,u,j,ia,ja'
-        self._parameters['jac_column']['name_wrapped'] = 'jac_column_f77'
+        self._parameters["jac_column"]["paralist_old"] = "u,t,j-1,ia,ja"
+        self._parameters["jac_column"]["paralist_new"] = "t,u,j,ia,ja"
+        self._parameters["jac_column"]["name_wrapped"] = "jac_column_f77"
         # If jac_column is input in form of jac(t,u,j),
         # wrap it to the general form jac_column(u,t,j) for switch_to().
-        self._parameters['jac_column_f77']['paralist_old'] = 't,u,j+1'
-        self._parameters['jac_column_f77']['paralist_new'] = 'u,t,j'
-        self._parameters['jac_column_f77']['name_wrapped'] = 'jac_column'
+        self._parameters["jac_column_f77"]["paralist_old"] = "t,u,j+1"
+        self._parameters["jac_column_f77"]["paralist_new"] = "u,t,j"
+        self._parameters["jac_column_f77"]["name_wrapped"] = "jac_column"
 
-        self._parameters['moss']['range'] = range(4)
-        self._parameters['moss']['condition-list'] = \
-                        {1: [('jac_column', 'jac_column_f77'),], \
-                         0: ['ia', 'ja']}
+        self._parameters["moss"]["range"] = range(4)
+        self._parameters["moss"]["condition-list"] = {
+            1: [
+                ("jac_column", "jac_column_f77"),
+            ],
+            0: ["ia", "ja"],
+        }
 
-        self._parameters['moss']['help'] = """\
+        self._parameters["moss"]["help"] = (
+            """\
 Method choice to obtain sparse structure with 3 possible
 values:
 
@@ -616,10 +621,15 @@ values:
      calls to JAC_COLUMN.
   2. The sparse structure will be obtained from
       NEQ+1 initial calls to F.""",
+        )
 
-        self._parameters['corrector_iter_method']['condition-list'] = \
-                {'1':[('jac_column','jac_column_f77'),],}
-        self._parameters['corrector_iter_method']['help'] = """\
+        self._parameters["corrector_iter_method"]["condition-list"] = {
+            "1": [
+                ("jac_column", "jac_column_f77"),
+            ],
+        }
+        self._parameters["corrector_iter_method"]["help"] = (
+            """\
 Corrector iteration method choice with 4
 possible values:
 
@@ -631,8 +641,8 @@ possible values:
     sparse Jacobian matrix.
  3. Chord iteration with internally generated
     diagonal Jacobian matrix.""",
-        Odepack.adjust_parameters(self)
-
+        )
+        ODEPACK.adjust_parameters(self)
 
     def set_iter_method(self):
         with_jac_column = hasattr(self, "jac_column") or hasattr(self, "jac_column_f77")

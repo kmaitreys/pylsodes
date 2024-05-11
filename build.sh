@@ -1,3 +1,4 @@
 #!/bin/bash
-
-f2py -c odepack/_dlsodes.pyf --opt='-std=legacy' -m odepack/blkdta000.f odepack/opkda1.f odepack/opkda2.f odepack/dlsodes.f
+mkdir -p build
+cd build
+f2py -c ../lib/_dlsodes.pyf --opt='-std=legacy' -m ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsodes.f

@@ -34,5 +34,6 @@ mkdir -p "$DEST_DIR"
 echo "Copying Python package to site-packages..."
 cp -r ./__init__.py "$DEST_DIR/"
 cp -r ./*.so "$DEST_DIR/"
+cp -r ./*.pyi "$DEST_DIR/"
 
 echo "Installation complete!"

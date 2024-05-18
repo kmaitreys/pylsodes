@@ -4,7 +4,7 @@ differential equation solvers.
 """
 from numpy import array, asarray, imag, isscalar, real, vstack, zeros
 
-from . import _dlsodes
+from ._dlsodes import dlsodes
 
 
 class Solver:

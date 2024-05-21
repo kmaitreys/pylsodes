@@ -16,7 +16,7 @@ class CustomInstallCommand(install):
 
 setup(
     name="pylsodes",
-    version="0.1.1",
+    version="0.1.2",
     packages=find_packages(),
     package_data={
         "pylsodes": ["_dlsodes.pyi"] + [file.split("/")[-1] for file in so_files]

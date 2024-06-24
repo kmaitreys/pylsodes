@@ -8,7 +8,7 @@ cd pylsodes
 pip install .
 ```
 
-Only 64-bit Linux support for now.
+Tested with 64-bit Linux and Apple silicon.
 
 ## Usage
 There is no Python frontend right now (might be there in the future), so you have to write your logic to populate work arrays as per your use case. The solver can easily be called by importing directly from the module and using as is used in Fortran.

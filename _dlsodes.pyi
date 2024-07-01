@@ -2,6 +2,7 @@
 Python wrapper to the DLSODES solver from the ODEPACK family of solvers, originally
 written in Fortran.
 """
+
 from typing import Callable, Tuple
 
 import numpy as np
@@ -12,11 +13,11 @@ def dlsodes(
     y: ArrayLike[np.float64],
     t: float,
     tout: float,
-    rtol: float | ArrayLike[np.float64] ,
+    rtol: float | ArrayLike[np.float64],
     atol: ArrayLike[np.float64],
     itask: int,
     istate: int,
-    rwork: ArrayLike[np.float64] ,
+    rwork: ArrayLike[np.float64],
     iwork: ArrayLike[np.int64],
     jac: Callable,
     mf: int,

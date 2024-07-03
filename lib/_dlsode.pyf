@@ -1,20 +1,19 @@
 python module dlsode__user__routines
 interface dlsode_user_interface
-   subroutine f(n,t,y,ydot)
-     integer intent(hide) :: n
-     double precision intent(in) :: t
-     double precision dimension(n),intent(in,c) :: y
-     double precision dimension(n),intent(out,c) :: ydot
-   end subroutine f
-   subroutine jac(n,t,y,j,ia,ja,pdj)
-     integer dimension(*),intent(hide) :: n
-     double precision :: t
-     double precision dimension(n[0]) :: y
-     integer :: j
-     integer dimension(n[0]+1) :: ia
-     integer dimension(n[1]) :: ja  
-     double precision dimension(*), intent(out) :: pdj
-   end subroutine jac
+       subroutine f(n,t,y,ydot)
+         integer intent(hide) :: n
+         double precision intent(in) :: t
+         double precision dimension(n),intent(in,c) :: y
+         double precision dimension(n),intent(out,c) :: ydot
+       end subroutine f
+       subroutine jac(n,t,y,ml,mu,jac,nrowpd)
+         integer intent(hide) :: n
+         double precision :: t
+         double precision dimension(n),intent(c,in) :: y
+         integer intent(hide) :: ml,mu
+         integer intent(hide):: nrowpd
+         double precision intent(out) :: jac(nrowpd, n)
+       end subroutine jac
 end interface
 end python module dlsode__user__routines
 

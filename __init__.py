@@ -2,8 +2,8 @@
 Python wrapper for DLSODES solver from Fortran ODEPACK family of
 differential equation solvers.
 """
-from numpy import array, asarray, imag, isscalar, real, vstack, zeros
 
+from ._dlsode import dlsode
 from ._dlsodes import dlsodes
 
 
@@ -14,17 +14,16 @@ class Solver:
         self.f_params = ()
         self.jac_params = ()
         self._y = []
+        self.issparse = False
 
     @property
     def y(self):
         return self._y
 
     def integrate(self, t, tout):
-        ...
-    
-    def update(self):
-        ...
-        
+        if self.issparse:
+            dlsodes()
+        else:
+            dlsode()
 
-
-
+    def update(self): ...

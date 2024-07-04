@@ -16,10 +16,10 @@ class CustomInstallCommand(install):
 
 setup(
     name="pylsodes",
-    version="0.1.3",
+    version="0.1.4",
     packages=find_packages(),
     package_data={
-        "pylsodes": ["_dlsodes.pyi"] + [file.split("/")[-1] for file in so_files]
+        "pylsodes": ["_dlsodes.pyi", "_dlsode.pyi"] + [file.split("/")[-1] for file in so_files]
     },
     include_package_data=True,
     install_requires=[
@@ -39,5 +39,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.11",
 )

@@ -1,6 +1,9 @@
 # pylsodes
 Python wrapper for `DLSODE` and `DLSODES` solvers from Fortran ODEPACK family of differential equation solvers.
 
+## Prerequisites
+A Fortran compiler (I built with `gfortran`) and Python < 3.11 with `numpy`. That's about it.
+
 ## Installation
 Acquire the latest release. Download the zip and extract into a folder of your liking, and then:
 ```

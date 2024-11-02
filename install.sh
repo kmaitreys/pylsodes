@@ -14,8 +14,8 @@ cd build
 
 # Compile Fortran sources into a Python extension module using f2py
 echo "Compiling Fortran sources..."
-f2py -c ../lib/_dlsodes.pyf --opt='-std=legacy -O3 -march=native -mtune=native' -m _dlsodes ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsodes.f --quiet
-f2py -c ../lib/_dlsode.pyf --opt='-std=legacy -O3 -march=native -mtune=native' -m _dlsode ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsode.f --quiet
+f2py -c ../lib/_dlsodes.pyf --f90flags='-std=legacy -O3 -march=native -mtune=native' -m _dlsodes ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsodes.f --quiet
+f2py -c ../lib/_dlsode.pyf --f90flags='-std=legacy -O3 -march=native -mtune=native' -m _dlsode ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsode.f --quiet
 
 # Move the compiled extension module to the Python package directory
 # echo "Moving compiled module to the Python package directory..."

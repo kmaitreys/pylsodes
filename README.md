@@ -26,3 +26,9 @@ from pylsodes import dlsodes # or dlsode
 ```
 
 Signature of the `rhs` and `jac` functions and description of arguments to the solver is detailed in the typing stub file.
+
+## Uninstllation
+The expected way of `pip uninstall pylsodes` does not work. Instead just run the the provided uninstallation script:
+```shell
+sh uninstall.sh
+```

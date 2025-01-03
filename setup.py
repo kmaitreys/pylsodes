@@ -1,13 +1,34 @@
+import glob
+import subprocess
+
 from setuptools import find_packages, setup
+from setuptools.command.install import install
+
+# Find all .so files in the pylsodes directory
+so_files = glob.glob("pylsodes/*.so")
+
+
+class CustomInstallCommand(install):
+    def run(self):
+        subprocess.check_call(["sh", "install.sh"])
+        install.run(self)
+
 
 setup(
     name="pylsodes",
-    version="0.2.1",
+    version="0.3",
     packages=find_packages(),
+    package_data={
+        "pylsodes": ["_dlsodes.pyi", "_dlsode.pyi"]
+        + [file.split("/")[-1] for file in so_files]
+    },
     include_package_data=True,
     install_requires=[
-        "numpy<2.0",
+        "numpy",
     ],
+    cmdclass={
+        "install": CustomInstallCommand,
+    },
     author="S. Maitrey",
     author_email="km.maitrey@gmail.com",
     description="Python wrapper for DLSODES solver from Fortran ODEPACK family of differential equation solvers",
@@ -17,8 +38,7 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: POSIX :: Linux",
-        "Operating System :: MacOS",
+        "Operating System :: OS Independent",
     ],
-    python_requires=">=3.10",
+    python_requires=">=3.11",
 )

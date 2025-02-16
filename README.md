@@ -4,7 +4,7 @@ Python wrapper for `DLSODE` and `DLSODES` solvers from Fortran ODEPACK family of
 
 ## Pre-requisites
 
-A Fortran compiler (I built with `gfortran`) and Python >= 3.10 with the latest `numpy`. That's about it.
+A Fortran compiler (I built with `gfortran`) and Python >= 3.10 with the latest `numpy`. `f2py` has been configured to use Meson backend, for which you would also need `meson` and `ninja`. That's about it.
 
 ## Installation
 

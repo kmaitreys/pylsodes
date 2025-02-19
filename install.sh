@@ -7,6 +7,31 @@ set -e
 PROJECT_ROOT=$(dirname "$0")
 cd "$PROJECT_ROOT"
 
+# Check if Python dependencies are installed
+echo "Checking dependencies..."
+
+PYTHON_CMD="python"
+
+# Check if numpy is installed, if not install it
+if ! $PYTHON_CMD -c "import numpy" &>/dev/null; then
+    echo "Installing numpy..."
+    $PYTHON_CMD -m pip install --quiet numpy==2.0
+fi
+
+# Check if meson is installed, if not install it
+if ! $PYTHON_CMD -c "import mesonbuild" &>/dev/null; then
+    echo "Installing meson..."
+    $PYTHON_CMD -m pip install --quiet meson
+fi
+
+# Check if ninja is installed, if not install it
+if ! command -v ninja &>/dev/null; then
+    echo "Installing ninja..."
+    $PYTHON_CMD -m pip install --quiet ninja
+fi
+
+echo "All dependencies are installed."
+
 # Create and navigate to the build directory
 echo "Creating build directory..."
 mkdir -p build

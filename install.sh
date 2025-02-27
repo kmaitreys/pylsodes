@@ -39,8 +39,8 @@ cd build
 
 # Compile Fortran sources into a Python extension module using f2py
 echo "Compiling Fortran sources..."
-CFLAGS="-O3" FFLAGS="-std=legacy -O3" LDFLAGS="-O3" python -m numpy.f2py -c ../lib/_dlsodes.pyf -m _dlsodes ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsodes.f --quiet --backend="meson"
-CFLAGS="-O3" FFLAGS="-std=legacy -O3" LDFLAGS="-O3" python -m numpy.f2py -c ../lib/_dlsode.pyf -m _dlsode ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsode.f --quiet --backend="meson"
+CFLAGS="-O3" FFLAGS="-std=legacy -mcpu=apple-m3 -mtune=native -O3" LDFLAGS="-O3" python -m numpy.f2py -c ../lib/_dlsodes.pyf -m _dlsodes ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsodes.f --quiet --backend="meson"
+CFLAGS="-O3" FFLAGS="-std=legacy -mcpu=apple-m3 -mtune=native -O3" LDFLAGS="-O3" python -m numpy.f2py -c ../lib/_dlsode.pyf -m _dlsode ../lib/blkdta000.f ../lib/opkda1.f ../lib/opkda2.f ../lib/dlsode.f --quiet --backend="meson"
 
 # Move the compiled extension module to the Python package directory
 # echo "Moving compiled module to the Python package directory..."
